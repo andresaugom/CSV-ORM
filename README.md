@@ -9,12 +9,14 @@ A simulated ORM library for CSV files on C++
 CSV-ORM/
 ├── include/
 │   └── csvorm/
-│       ├── orm.hpp          // Punto de entrada principal
-│       ├── model.hpp        // Definición de modelos
-│       ├── datatypes.hpp    // Tipos admitidos y wrappers tipo Nullable<T>
-│       ├── table.hpp        // Representa una tabla (con registros en memoria)
-│       ├── row.hpp          // Representación de una fila
-│       └── query.hpp        // Sistema de consultas fluido
+│       ├── Field.hpp                   // Data
+│       ├── FieldInfo.hpp               // Metadata
+│       ├── Model.hpp                   // Base model to implement schemas
+│       ├── ORM.hpp                     // Parent class
+│       ├── parsing.hpp                 // Parsing functions
+│       ├── Query.hpp                   // Allows multiple queries on table class
+│       ├── Table.hpp                   // Represents a table on memory
+│       └── Type.hpp                    // Supported data types
 ├── src/
 │   ├── orm.cpp
 │   └── ...
