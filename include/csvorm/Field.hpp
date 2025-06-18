@@ -6,10 +6,11 @@
 template <typename T>
 class Field {
     private:
-        using value_type = T;
         std::optional<T> value;
 
     public:
+        using value_type = T;
+
         Field() = default;
         Field(const T& val) : value(val) {}    
     
@@ -18,4 +19,6 @@ class Field {
         void set(const T& val)  { this->value = val; }
         const bool is_null() const { return this->value.has_value(); }
         void reset() { this->value.reset(); }
+
+        ~Field() = default;
 };
