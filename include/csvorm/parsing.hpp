@@ -3,6 +3,7 @@
 #pragma once
 
 #include <stdexcept>
+#include <string>
 
 template <typename T>
 T parse_value(const std::string& str);
