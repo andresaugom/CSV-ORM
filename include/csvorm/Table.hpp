@@ -4,26 +4,55 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iostream>
+#include "Field.hpp"
 #include "FieldInfo.hpp"
 #include "Query.hpp"
 
+/**
+ * You define a struct like this:
+ * 
+ *  struct MyCSV {
+ *      Field<int> id;
+ *      Field<std::string> name;
+ *      Field<float> anotherField;
+ *      ...
+ *  };
+ * 
+ * and then, a FieldInfo vector which will tell the ORM 
+ * how to read the CSV and call every column:
+ * 
+ *  std::vector<FieldInfo*> schema;
+ * 
+ *  schema.push_back(FieldInfo<MyCSV, int>("MyID", MyCSV::id*));
+ *  schema.push_back(FieldInfo<MyCSV, std::string>("MyName", MyCSV::name*));
+ *  schema.push_back(FieldInfo<MyCSV, float>("MyAnotherField", MyCSV::anotherField*));
+ *  ...
+ * 
+ */
+
+// Type T MUST be the struct defined by user.
 template <typename T>
 class Table {
     private:
         char def_separator = ',';
         std::vector<T> rows;
-        std::vector<FieldInfoBase*> schema;
+        std::vector<std::shared_ptr<FieldInfoBase>> schema;
         std::string path; // Path to file .csv
 
     public:
         Table(
-            const std::vector<FieldInfoBase*>& schema, 
+            const std::vector<std::shared_ptr<FieldInfoBase>>& schema, 
             const std::string& path, 
             char def_separator
-        ) : schema(schema), path(path), def_separator(def_separator) {
+        ) : schema(schema), path(path), def_separator(def_separator) {}
 
-        }
-
+        /**
+         * # Get all CSV objects loaded on ram.
+         * 
+         * ## Pending to implement:
+         * - Loading objects by batches / pagination
+         */
         void load() {
             std::ifstream file(path);
             if (!file.is_open()) {
@@ -53,8 +82,30 @@ class Table {
             }
         }
 
+        /**
+         * # Write all objects on 'rows' attribute. 
+         * 
+         * ### Details:
+         * - This method writes AS SORTED ON VECTOR. If you want to
+         * write the objects on any order, use 'sort(...)' method
+         * - The sort method is not implemented on TableQuery yet.
+         */
         void save() {
+            std::stringstream result;
 
+            for (const T& row : rows) {
+                for (size_t i = 0; i < schema.size(); ++i){ 
+                    result << schema[i]->get_as_string((void*)&row);
+
+                    if (i != schema.size() - 1) {
+                        result << def_separator;
+                    }
+                }
+                result << "\n";
+            }
+
+            std::ofstream file(path);
+            file << result.str(); 
         }
 
         void insert(T new_row) {
@@ -67,11 +118,28 @@ class Table {
             }
         }
 
+        // This function is just to test
+        void print_vector() {
+            std::stringstream result;
 
+            for (const T& row : rows) {
+                for (size_t i = 0; i < schema.size(); ++i){ 
+                    result << schema[i]->get_as_string((void*)&row);
 
+                    if (i != schema.size() - 1) {
+                        result << def_separator;
+                    }
+                }
+                result << "\n";
+            }
+            std::cout << result.str();
+        }
+
+/*
         TableQuery<T> query() const {
             return TableQuery<T>(this->rows);
         }
+*/
 
         ~Table() = default;
 };
