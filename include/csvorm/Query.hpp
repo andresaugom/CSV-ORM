@@ -1,5 +1,5 @@
 // File: Query.hpp
-
+/*
 #pragma once
 
 template <typename T>
@@ -37,7 +37,7 @@ public:
 
     void print() const {
         for (auto* row : filtered_view) {
-            // Mostrar cada fila como sea necesario
+            
         }
     }
 
@@ -47,3 +47,4 @@ public:
     }
 };
 
+ */
