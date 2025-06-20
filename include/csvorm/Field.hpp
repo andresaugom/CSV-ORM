@@ -1,7 +1,6 @@
 // File: Field.hpp
 
 #include <optional>
-#include "Type.hpp"
 
 template <typename T>
 class Field {
@@ -15,10 +14,23 @@ class Field {
         Field(const T& val) : value(val) {}    
     
         // Member functions
-        const T& get() const { return this->value; }
+        const T& get() const {
+            if (is_null()) throw std::runtime_error("Trying to access null Field value");
+            return this->value.value();
+        }
         void set(const T& val)  { this->value = val; }
-        const bool is_null() const { return this->value.has_value(); }
+        bool is_null() const { return !this->value.has_value(); }
         void reset() { this->value.reset(); }
+
+        friend std::ostream& operator<<(std::ostream& os, const Field<T>& f) {
+            if (!f.is_null()) {
+                os << f.get();
+            } 
+            else {
+                os << "";
+            }
+            return os;
+        }
 
         ~Field() = default;
 };
