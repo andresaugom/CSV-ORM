@@ -1,7 +1,6 @@
 # CSV-ORM
 
-A simulated ORM library for CSV files on C++ 
-
+A simulated ORM library for CSV files on C++ using pointers to members and templates.
 
 ## Proyect Structure:
 
@@ -14,15 +13,16 @@ CSV-ORM/
 │       ├── Model.hpp                   // Base model to implement schemas
 │       ├── ORM.hpp                     // Parent class
 │       ├── parsing.hpp                 // Parsing functions
-│       ├── Query.hpp                   // Allows multiple queries on table class
 │       ├── Table.hpp                   // Represents a table on memory
-│       └── Type.hpp                    // Supported data types
+│       ├── TableQuery.hpp              // Supports multiple queries on table
+│       └── TableMutation.hpp           // Supports making changes on table
 ├── src/
-│   ├── orm.cpp
+│   ├── Thinking of separating implementation from signature
 │   └── ...
 ├── tests/
 │   └── test_main.cpp
 ├── examples/
+│   ├── data.csv                        // Example data
 │   └── basic_usage.cpp
 ├── CMakeLists.txt
 └── README.md
