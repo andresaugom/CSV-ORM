@@ -7,7 +7,8 @@
 #include <iostream>
 #include "Field.hpp"
 #include "FieldInfo.hpp"
-#include "Query.hpp"
+#include "TableQuery.hpp"
+#include "TableMutation.hpp"
 
 /**
  * You define a struct like this:
@@ -118,7 +119,7 @@ class Table {
             }
         }
 
-        // This function is just to test
+        // This function is just to test / debug
         void print_vector() {
             std::stringstream result;
 
@@ -135,11 +136,13 @@ class Table {
             std::cout << result.str();
         }
 
-/*
         TableQuery<T> query() const {
             return TableQuery<T>(this->rows);
         }
-*/
+
+        TableMutation<T> edit() {
+            return TableMutation<T>(this->rows);
+        }
 
         ~Table() = default;
 };
