@@ -109,6 +109,31 @@ class Table {
             file << result.str(); 
         }
 
+        /**
+         * # Write all objects on 'rows' attribute. 
+         * 
+         * ### Details:
+         * - This method writes on the specified path, and works exactly
+         * the same as save() method.
+         */
+        void save(std::string path) {
+            std::stringstream result;
+
+            for (const T& row : rows) {
+                for (size_t i = 0; i < schema.size(); ++i) {
+                    result << schema[i]->get_as_string((void*)&row);
+
+                    if (i != schema.size() - 1) {
+                        result << def_separator;
+                    }
+                }
+                result << "\n";
+            }
+
+            std::ofstream file(path);
+            file << result.str();
+        }
+
         void insert(T new_row) {
             rows.push_back(new_row);
         }
