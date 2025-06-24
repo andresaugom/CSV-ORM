@@ -31,14 +31,8 @@
 *.out
 *.app
 
-# Ignore all
-*
-# Unignore all with extensions
-!*.*
-# Unignore all dirs
-!*/
-
 # VSCode
+.vscode/*
 .vscode/
 
 # My own trash files
