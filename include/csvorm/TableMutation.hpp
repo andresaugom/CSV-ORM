@@ -11,10 +11,10 @@ class TableMutation {
         std::vector<T> rollback_cache;
 
     public:
-        TableMutation(std::vector<T*>& input_rows) {
-            for (T* r : input_rows) {
-                rows_to_mutate.push_back(r);
-                rollback_cache.push_back(*r);
+        TableMutation(std::vector<T>& input_rows) {
+            for (T& r : input_rows) {
+                rows_to_mutate.push_back(&r);
+                rollback_cache.push_back(r);
             }
         }
     
@@ -34,7 +34,7 @@ class TableMutation {
             return *this;
         }
 
-        TableMutation<T>& set(std::function<void(const T&)> setter) {
+        TableMutation<T>& set(std::function<void(T&)> setter) {
             for (T* r : rows_to_mutate) {
                 setter(*r);
             }
