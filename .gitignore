@@ -38,3 +38,6 @@
 # My own trash files
 .trash/*
 .trash/
+
+# 'main' binary file
+main
