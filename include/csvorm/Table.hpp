@@ -49,10 +49,17 @@ class Table {
         ) : schema(schema), path(path), def_separator(def_separator) {}
 
         /**
-         * # Get all CSV objects loaded on ram.
+         * #Load()
+         * Gets the CSV data as objects on memory
          * 
-         * ## Pending to implement:
+         * ##Pending to implement:
          * - Loading objects by batches / pagination
+         * 
+         * ##Description:
+         * This method only works with consistent CSVs.
+         * This means if the CSV has at least 1 row with
+         * more/less separators, throws an error.
+         * Every row instance has the structure defined by user
          */
         void load() {
             std::ifstream file(path);
@@ -134,10 +141,12 @@ class Table {
             file << result.str();
         }
 
+        // Append a T instance on the data vector.
         void insert(T new_row) {
             rows.push_back(new_row);
         }
 
+        // Delete an specific row based on index
         void delete_row(int row_index) {
             if (row_index >= 0 && row_index < rows.size()) {
                 rows.erase(rows.begin() + row_index);
@@ -161,10 +170,12 @@ class Table {
             std::cout << result.str();
         }
 
+        // Check TableQuery.hpp
         TableQuery<T> query() const {
             return TableQuery<T>(this->rows);
         }
 
+        // Check TableMutation.hpp
         TableMutation<T> edit() {
             return TableMutation<T>(this->rows);
         }

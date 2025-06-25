@@ -1,10 +1,17 @@
 // File: FieldInfo.hpp
 
 #include "parsing.hpp"
-
 #include <string>
 #include <sstream>
 
+/**
+ * #FieldInfo
+ * Works as metadata for each 'Field' on table
+ * 
+ * ##Description:
+ * This class allows storing the name of the column
+ * and the pointer to the struct member defined by user.
+ */
 struct FieldInfoBase {
     std::string name;
 

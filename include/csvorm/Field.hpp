@@ -2,6 +2,17 @@
 
 #include <optional>
 
+/**
+ * #Field
+ * Represents a cell on the table
+ * 
+ * ##Description
+ * Supported fields types are: 
+ * int, float, double, string, bool
+ * 
+ * ##Additional notes:
+ * 
+ */
 template <typename T>
 class Field {
     private:
