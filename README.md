@@ -8,13 +8,14 @@
 CSV-ORM/
 ├── include/
 │   └── csvorm/
-│       ├── Field.hpp             # Represents a single cell (nullable-aware)
-│       ├── FieldInfo.hpp         # Metadata for fields (name and member pointer)
-│       ├── ORM.hpp               # (Planned) Entry point for full system
-│       ├── parsing.hpp           # Parsing functions for string → type
-│       ├── Table.hpp             # Core Table class (load/save/query/edit)
-│       ├── TableQuery.hpp        # Provides fluent, filterable query interface
-│       └── TableMutation.hpp     # Enables in-memory modification of table rows
+│   │   ├── Field.hpp             # Represents a single cell (nullable-aware)
+│   │   ├── FieldInfo.hpp         # Metadata for fields (name and member pointer)
+│   │   ├── ORM.hpp               # Entry point for full system
+│   │   ├── parsing.hpp           # Parsing functions for string → type
+│   │   ├── Table.hpp             # Core Table class (load/save/query/edit)
+│   │   ├── TableQuery.hpp        # Provides fluent, filterable query interface
+│   │   └── TableMutation.hpp     # Enables in-memory modification of table rows
+|   └── csvorm.hpp                # Used to import ORM.hpp above
 ├── tests/
 │   ├── data.csv                  # Sample test CSV
 │   └── test_main.cpp             # Test runner with full usage
